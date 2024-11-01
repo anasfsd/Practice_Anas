@@ -3,66 +3,67 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-# Set up the calculator title
+# Title for the app
 st.title("Scientific Graphical Calculator")
 
-# Options for scientific functions
-options = ["Addition", "Subtraction", "Multiplication", "Division", "Sin", "Cos", "Tan", "Exponential", "Logarithm", "Square Root"]
+# Options for different operations
+operations = ["Addition", "Subtraction", "Multiplication", "Division", 
+              "Sin", "Cos", "Tan", "Exponential", "Logarithm", "Square Root"]
 
-# Choose a function
-function = st.selectbox("Choose a function", options)
+# Dropdown to select an operation
+operation = st.selectbox("Select an Operation", operations)
 
-# Take inputs based on the function selected
-if function in ["Addition", "Subtraction", "Multiplication", "Division"]:
-    num1 = st.number_input("Enter the first number")
-    num2 = st.number_input("Enter the second number")
-elif function in ["Sin", "Cos", "Tan"]:
-    angle = st.number_input("Enter the angle in degrees")
-elif function == "Exponential":
-    base = st.number_input("Enter the base number")
-    exp = st.number_input("Enter the exponent")
-elif function == "Logarithm":
-    num = st.number_input("Enter the number")
-elif function == "Square Root":
-    num = st.number_input("Enter the number")
+# Input fields based on the operation selected
+if operation in ["Addition", "Subtraction", "Multiplication", "Division"]:
+    num1 = st.number_input("Enter first number")
+    num2 = st.number_input("Enter second number")
+elif operation in ["Sin", "Cos", "Tan"]:
+    angle = st.number_input("Enter angle (in degrees)")
+elif operation == "Exponential":
+    base = st.number_input("Enter base")
+    exp = st.number_input("Enter exponent")
+elif operation == "Logarithm":
+    num = st.number_input("Enter number (must be positive)")
+elif operation == "Square Root":
+    num = st.number_input("Enter number (must be non-negative)")
 
-# Calculate and display result
+# Calculation and output
 if st.button("Calculate"):
     try:
-        if function == "Addition":
+        if operation == "Addition":
             result = num1 + num2
-        elif function == "Subtraction":
+        elif operation == "Subtraction":
             result = num1 - num2
-        elif function == "Multiplication":
+        elif operation == "Multiplication":
             result = num1 * num2
-        elif function == "Division":
-            result = num1 / num2 if num2 != 0 else "Error (division by zero)"
-        elif function == "Sin":
+        elif operation == "Division":
+            result = num1 / num2 if num2 != 0 else "Error: Division by zero"
+        elif operation == "Sin":
             result = math.sin(math.radians(angle))
-        elif function == "Cos":
+        elif operation == "Cos":
             result = math.cos(math.radians(angle))
-        elif function == "Tan":
+        elif operation == "Tan":
             result = math.tan(math.radians(angle))
-        elif function == "Exponential":
+        elif operation == "Exponential":
             result = base ** exp
-        elif function == "Logarithm":
-            result = math.log(num) if num > 0 else "Error (log of non-positive number)"
-        elif function == "Square Root":
-            result = math.sqrt(num) if num >= 0 else "Error (square root of negative number)"
+        elif operation == "Logarithm":
+            result = math.log(num) if num > 0 else "Error: Logarithm of non-positive number"
+        elif operation == "Square Root":
+            result = math.sqrt(num) if num >= 0 else "Error: Square root of negative number"
         st.write("Result:", result)
     except Exception as e:
         st.write(f"Error: {e}")
 
-# Graph plotting feature
+# Graph plotting
 st.header("Graphing Tool")
-function_to_graph = st.text_input("Enter a mathematical function to graph (use 'x' as variable, e.g., sin(x) or x**2)")
-x_min = st.number_input("X-axis min", value=-10)
-x_max = st.number_input("X-axis max", value=10)
+function_to_graph = st.text_input("Enter function to graph (use 'x' as variable, e.g., sin(x), x**2)")
+x_min = st.number_input("X-axis minimum", value=-10)
+x_max = st.number_input("X-axis maximum", value=10)
 
 if st.button("Plot Graph"):
     x = np.linspace(x_min, x_max, 1000)
     try:
-        y = eval(function_to_graph)  # Evaluate the function
+        y = eval(function_to_graph)  # Evaluate the function for the plot
         fig, ax = plt.subplots()
         ax.plot(x, y)
         ax.set_xlabel("x")
@@ -70,4 +71,4 @@ if st.button("Plot Graph"):
         ax.set_title(f"Graph of {function_to_graph}")
         st.pyplot(fig)
     except Exception as e:
-        st.write("Error in function input. Please enter a valid mathematical function.")
+        st.write("Invalid function input. Please enter a valid mathematical function.")
