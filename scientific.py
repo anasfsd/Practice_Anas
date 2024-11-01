@@ -28,27 +28,30 @@ elif function == "Square Root":
 
 # Calculate and display result
 if st.button("Calculate"):
-    if function == "Addition":
-        result = num1 + num2
-    elif function == "Subtraction":
-        result = num1 - num2
-    elif function == "Multiplication":
-        result = num1 * num2
-    elif function == "Division":
-        result = num1 / num2 if num2 != 0 else "Error (division by zero)"
-    elif function == "Sin":
-        result = math.sin(math.radians(angle))
-    elif function == "Cos":
-        result = math.cos(math.radians(angle))
-    elif function == "Tan":
-        result = math.tan(math.radians(angle))
-    elif function == "Exponential":
-        result = base ** exp
-    elif function == "Logarithm":
-        result = math.log(num) if num > 0 else "Error (log of non-positive number)"
-    elif function == "Square Root":
-        result = math.sqrt(num) if num >= 0 else "Error (square root of negative number)"
-    st.write("Result:", result)
+    try:
+        if function == "Addition":
+            result = num1 + num2
+        elif function == "Subtraction":
+            result = num1 - num2
+        elif function == "Multiplication":
+            result = num1 * num2
+        elif function == "Division":
+            result = num1 / num2 if num2 != 0 else "Error (division by zero)"
+        elif function == "Sin":
+            result = math.sin(math.radians(angle))
+        elif function == "Cos":
+            result = math.cos(math.radians(angle))
+        elif function == "Tan":
+            result = math.tan(math.radians(angle))
+        elif function == "Exponential":
+            result = base ** exp
+        elif function == "Logarithm":
+            result = math.log(num) if num > 0 else "Error (log of non-positive number)"
+        elif function == "Square Root":
+            result = math.sqrt(num) if num >= 0 else "Error (square root of negative number)"
+        st.write("Result:", result)
+    except Exception as e:
+        st.write(f"Error: {e}")
 
 # Graph plotting feature
 st.header("Graphing Tool")
