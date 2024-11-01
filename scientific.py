@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 import math
 
 # Title for the app
@@ -54,9 +54,9 @@ if st.button("Calculate"):
     except Exception as e:
         st.write(f"Error: {e}")
 
-# Graph plotting
+# Graph plotting with Plotly
 st.header("Graphing Tool")
-function_to_graph = st.text_input("Enter function to graph (use 'x' as variable, e.g., sin(x), x**2)")
+function_to_graph = st.text_input("Enter a function to graph (use 'x' as variable, e.g., sin(x), x**2)")
 x_min = st.number_input("X-axis minimum", value=-10)
 x_max = st.number_input("X-axis maximum", value=10)
 
@@ -64,11 +64,8 @@ if st.button("Plot Graph"):
     x = np.linspace(x_min, x_max, 1000)
     try:
         y = eval(function_to_graph)  # Evaluate the function for the plot
-        fig, ax = plt.subplots()
-        ax.plot(x, y)
-        ax.set_xlabel("x")
-        ax.set_ylabel("y")
-        ax.set_title(f"Graph of {function_to_graph}")
-        st.pyplot(fig)
+        fig = go.Figure(data=go.Scatter(x=x, y=y, mode='lines'))
+        fig.update_layout(title=f"Graph of {function_to_graph}", xaxis_title="x", yaxis_title="y")
+        st.plotly_chart(fig)
     except Exception as e:
         st.write("Invalid function input. Please enter a valid mathematical function.")
