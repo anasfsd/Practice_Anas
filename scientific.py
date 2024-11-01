@@ -1,5 +1,5 @@
 # Install Streamlit if you haven't already
-# !pip install streamlit
+ !pip install streamlit
 
 import streamlit as st
 import numpy as np
@@ -109,3 +109,4 @@ elif operation_type == "Plot Functions":
     ax.set_ylabel("y")
     ax.legend()
     st.pyplot(fig)
+streamlit run scientific_calculator.py
