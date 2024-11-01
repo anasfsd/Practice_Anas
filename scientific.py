@@ -109,4 +109,4 @@ elif operation_type == "Plot Functions":
     ax.set_ylabel("y")
     ax.legend()
     st.pyplot(fig)
-streamlit run scientific_calculator.py
+#streamlit run scientific_calculator.py
